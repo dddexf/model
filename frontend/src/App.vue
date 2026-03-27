@@ -107,7 +107,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onMounted, ref, watch } from "vue";
+import { computed, nextTick, onMounted, reactive, ref, watch } from "vue";
 import { Delete, Edit, Plus, Promotion, VideoPause } from "@element-plus/icons-vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import DOMPurify from "dompurify";
@@ -260,18 +260,18 @@ async function handleSend() {
   }
 
   const sessionId = activeSessionId.value;
-  const userTmp = {
+  const userTmp = reactive({
     id: `u-${Date.now()}`,
     role: "USER",
     content: text,
     status: "DONE"
-  };
-  const assistantTmp = {
+  });
+  const assistantTmp = reactive({
     id: `a-${Date.now()}`,
     role: "ASSISTANT",
     content: "",
     status: "STREAMING"
-  };
+  });
 
   messages.value.push(userTmp, assistantTmp);
   inputMessage.value = "";
