@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://192.168.113.130:3306/model?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&useSSL=false}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: Asia/Shanghai
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+  global-config:
+    banner: false
+
+app:
+  cors:
+    allowed-origins: http://localhost:5173
+  stream:
+    recent-rounds: 10
+  security:
+    master-key: ${APP_MASTER_KEY:0123456789abcdef0123456789abcdef}

@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:chat_app_test;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_UPPER=false
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+      schema-locations: classpath:schema-h2.sql
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+  global-config:
+    banner: false
+
+app:
+  cors:
+    allowed-origins: http://localhost:5173
+  stream:
+    recent-rounds: 4
+  security:
+    master-key: 0123456789abcdef0123456789abcdef
