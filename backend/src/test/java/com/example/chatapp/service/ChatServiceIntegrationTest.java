@@ -1,15 +1,15 @@
 package com.example.chatapp.service;
 
-import com.example.chatapp.domain.entity.AiModel;
-import com.example.chatapp.domain.entity.AiProvider;
-import com.example.chatapp.domain.entity.ChatMessage;
-import com.example.chatapp.domain.entity.ChatSession;
-import com.example.chatapp.domain.enums.MessageStatus;
-import com.example.chatapp.dto.ChatStreamRequest;
-import com.example.chatapp.repository.AiModelRepository;
-import com.example.chatapp.repository.AiProviderRepository;
-import com.example.chatapp.repository.ChatMessageRepository;
-import com.example.chatapp.repository.ChatSessionRepository;
+import com.example.chatapp.model.entity.AiModel;
+import com.example.chatapp.model.entity.AiProvider;
+import com.example.chatapp.model.entity.ChatMessage;
+import com.example.chatapp.model.entity.ChatSession;
+import com.example.chatapp.model.enums.MessageStatus;
+import com.example.chatapp.model.req.ChatStreamRequest;
+import com.example.chatapp.mapper.AiModelRepository;
+import com.example.chatapp.mapper.AiProviderRepository;
+import com.example.chatapp.mapper.ChatMessageRepository;
+import com.example.chatapp.mapper.ChatSessionRepository;
 import com.example.chatapp.service.client.OpenAiCompatibleClient;
 import com.example.chatapp.stream.StreamSink;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,8 +1,8 @@
 package com.example.chatapp.service;
 
-import com.example.chatapp.domain.entity.ChatMessage;
-import com.example.chatapp.domain.enums.MessageRole;
-import com.example.chatapp.domain.enums.MessageStatus;
+import com.example.chatapp.model.entity.ChatMessage;
+import com.example.chatapp.model.enums.MessageRole;
+import com.example.chatapp.model.enums.MessageStatus;
 import com.example.chatapp.service.client.LlmMessage;
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.example.chatapp.dto;
+package com.example.chatapp.model.dto;
 
 public record ModelOptionDto(
         Long id,

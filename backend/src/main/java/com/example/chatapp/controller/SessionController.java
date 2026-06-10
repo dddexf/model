@@ -1,9 +1,9 @@
 package com.example.chatapp.controller;
 
-import com.example.chatapp.dto.ChatMessageDto;
-import com.example.chatapp.dto.SessionCreateRequest;
-import com.example.chatapp.dto.SessionDto;
-import com.example.chatapp.dto.SessionRenameRequest;
+import com.example.chatapp.model.dto.ChatMessageDto;
+import com.example.chatapp.model.req.SessionCreateRequest;
+import com.example.chatapp.model.dto.SessionDto;
+import com.example.chatapp.model.req.SessionRenameRequest;
 import com.example.chatapp.service.SessionService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

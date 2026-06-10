@@ -1,11 +1,11 @@
-package com.example.chatapp.domain;
+package com.example.chatapp.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.example.chatapp.enums.MessageRole;
-import com.example.chatapp.enums.MessageStatus;
+import com.example.chatapp.model.enums.MessageRole;
+import com.example.chatapp.model.enums.MessageStatus;
 import lombok.Data;
 
 import java.time.LocalDateTime;

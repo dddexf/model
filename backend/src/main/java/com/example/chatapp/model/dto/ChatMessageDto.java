@@ -1,7 +1,7 @@
-package com.example.chatapp.dto;
+package com.example.chatapp.model.dto;
 
-import com.example.chatapp.enums.MessageRole;
-import com.example.chatapp.enums.MessageStatus;
+import com.example.chatapp.model.enums.MessageRole;
+import com.example.chatapp.model.enums.MessageStatus;
 
 import java.time.LocalDateTime;
 

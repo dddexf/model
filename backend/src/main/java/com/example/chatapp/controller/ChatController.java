@@ -1,6 +1,6 @@
 package com.example.chatapp.controller;
 
-import com.example.chatapp.dto.ChatStreamRequest;
+import com.example.chatapp.model.req.ChatStreamRequest;
 import com.example.chatapp.service.ChatService;
 import com.example.chatapp.stream.SseStreamSink;
 import jakarta.validation.Valid;

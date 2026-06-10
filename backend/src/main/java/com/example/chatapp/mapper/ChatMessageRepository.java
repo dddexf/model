@@ -1,4 +1,4 @@
-package com.example.chatapp.repository;
+package com.example.chatapp.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.chatapp.model.entity.ChatMessage;

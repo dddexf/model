@@ -1,12 +1,12 @@
 package com.example.chatapp.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.example.chatapp.domain.entity.ChatSession;
-import com.example.chatapp.dto.ChatMessageDto;
-import com.example.chatapp.dto.SessionDto;
+import com.example.chatapp.model.entity.ChatSession;
+import com.example.chatapp.model.dto.ChatMessageDto;
+import com.example.chatapp.model.dto.SessionDto;
 import com.example.chatapp.exception.NotFoundException;
-import com.example.chatapp.repository.ChatMessageRepository;
-import com.example.chatapp.repository.ChatSessionRepository;
+import com.example.chatapp.mapper.ChatMessageRepository;
+import com.example.chatapp.mapper.ChatSessionRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

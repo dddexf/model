@@ -1,4 +1,4 @@
-package com.example.chatapp.domain;
+package com.example.chatapp.model.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

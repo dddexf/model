@@ -1,6 +1,6 @@
 package com.example.chatapp.controller;
 
-import com.example.chatapp.dto.ModelOptionDto;
+import com.example.chatapp.model.dto.ModelOptionDto;
 import com.example.chatapp.service.ModelService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

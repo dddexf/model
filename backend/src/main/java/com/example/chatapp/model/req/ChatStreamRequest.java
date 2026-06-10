@@ -1,9 +1,11 @@
-package com.example.chatapp.model.dto;
+package com.example.chatapp.model.req;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 public class ChatStreamRequest {
 
     @NotNull(message = "sessionId is required")
@@ -15,28 +17,4 @@ public class ChatStreamRequest {
     @NotBlank(message = "message cannot be blank")
     @Size(max = 8000, message = "message length must be <= 8000")
     private String message;
-
-    public Long getSessionId() {
-        return sessionId;
-    }
-
-    public void setSessionId(Long sessionId) {
-        this.sessionId = sessionId;
-    }
-
-    public Long getModelId() {
-        return modelId;
-    }
-
-    public void setModelId(Long modelId) {
-        this.modelId = modelId;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }

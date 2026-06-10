@@ -1,7 +1,7 @@
 package com.example.chatapp.service;
 
-import com.example.chatapp.dto.ModelOptionDto;
-import com.example.chatapp.repository.AiModelRepository;
+import com.example.chatapp.model.dto.ModelOptionDto;
+import com.example.chatapp.mapper.AiModelRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
