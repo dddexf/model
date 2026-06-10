@@ -1,7 +1,7 @@
 package com.example.chatapp.repository;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.chatapp.domain.entity.AiModel;
+import com.example.chatapp.model.entity.AiModel;
 import com.example.chatapp.repository.projection.AiModelProviderView;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

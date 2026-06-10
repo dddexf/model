@@ -1,4 +1,4 @@
-package com.example.chatapp.domain.enums;
+package com.example.chatapp.enums;
 
 public enum MessageRole {
     SYSTEM,

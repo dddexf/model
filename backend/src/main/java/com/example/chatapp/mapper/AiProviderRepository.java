@@ -1,9 +1,9 @@
 package com.example.chatapp.repository;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.chatapp.domain.entity.ChatSession;
+import com.example.chatapp.model.entity.AiProvider;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ChatSessionRepository extends BaseMapper<ChatSession> {
+public interface AiProviderRepository extends BaseMapper<AiProvider> {
 }
