@@ -145,6 +145,16 @@ body {
   font-size: 13px;
 }
 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.transport-select {
+  min-width: 160px;
+}
+
 .model-select {
   min-width: 310px;
 }

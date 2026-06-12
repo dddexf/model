@@ -39,21 +39,32 @@
       <header class="chat-header">
         <div>
           <h2>{{ activeSessionTitle }}</h2>
-          <p>流式输出 · 会话自动保存</p>
+          <p>{{ transportModeLabel }} · 会话自动保存</p>
         </div>
-        <el-select
-          v-model="selectedModelId"
-          placeholder="选择模型"
-          class="model-select"
-          :disabled="models.length === 0"
-        >
-          <el-option
-            v-for="model in models"
-            :key="model.id"
-            :label="`${model.displayName} (${model.providerName})`"
-            :value="model.id"
-          />
-        </el-select>
+        <div class="header-controls">
+          <el-select
+            v-model="transportMode"
+            class="transport-select"
+            :disabled="isStreaming"
+            @change="handleTransportModeChange"
+          >
+            <el-option label="SSE 流式" value="sse" />
+            <el-option label="WebSocket 流式" value="websocket" />
+          </el-select>
+          <el-select
+            v-model="selectedModelId"
+            placeholder="选择模型"
+            class="model-select"
+            :disabled="models.length === 0"
+          >
+            <el-option
+              v-for="model in models"
+              :key="model.id"
+              :label="`${model.displayName} (${model.providerName})`"
+              :value="model.id"
+            />
+          </el-select>
+        </div>
       </header>
 
       <section ref="messageContainerRef" class="message-stream">
@@ -114,13 +125,16 @@ import DOMPurify from "dompurify";
 import { marked } from "marked";
 import hljs from "highlight.js";
 import {
+  connectChatWebSocket,
   createSession,
   deleteSession,
+  disconnectChatWebSocket,
   listMessages,
   listModels,
   listSessions,
   renameSession,
-  streamChat
+  streamChat,
+  streamChatWebSocket
 } from "./api/http";
 
 marked.setOptions({ breaks: true, gfm: true });
@@ -131,9 +145,14 @@ const messages = ref([]);
 const activeSessionId = ref(null);
 const selectedModelId = ref(null);
 const inputMessage = ref("");
+const transportMode = ref("sse");
 const isStreaming = ref(false);
 const streamAbortController = ref(null);
 const messageContainerRef = ref(null);
+
+const transportModeLabel = computed(() =>
+  transportMode.value === "websocket" ? "WebSocket 流式输出" : "SSE 流式输出"
+);
 
 const activeSessionTitle = computed(() => {
   const target = sessions.value.find((it) => it.id === activeSessionId.value);
@@ -168,6 +187,25 @@ async function initialize() {
     selectedModelId.value = models.value[0].id;
   }
   await loadSessionsAndMessages();
+  if (transportMode.value === "websocket") {
+    await connectChatWebSocket();
+  }
+}
+
+async function handleTransportModeChange(mode) {
+  if (isStreaming.value) {
+    return;
+  }
+  if (mode === "websocket") {
+    try {
+      await connectChatWebSocket();
+    } catch (error) {
+      transportMode.value = "sse";
+      ElMessage.error(error.message || "WebSocket 连接失败");
+    }
+    return;
+  }
+  disconnectChatWebSocket();
 }
 
 async function loadSessionsAndMessages() {
@@ -279,39 +317,40 @@ async function handleSend() {
   isStreaming.value = true;
   streamAbortController.value = new AbortController();
 
-  try {
-    await streamChat(
-      {
-        sessionId,
-        modelId: selectedModelId.value,
-        message: text
-      },
-      {
-        signal: streamAbortController.value.signal,
-        onEvent: (event, payload) => {
-          if (event === "start") {
-            assistantTmp.id = payload.assistantMessageId ?? assistantTmp.id;
-            return;
-          }
-          if (event === "delta") {
-            assistantTmp.content += payload.delta ?? "";
-            return;
-          }
-          if (event === "done") {
-            assistantTmp.content = payload.content ?? assistantTmp.content;
-            assistantTmp.status = "DONE";
-            return;
-          }
-          if (event === "error") {
-            assistantTmp.status = "FAILED";
-            if (!assistantTmp.content) {
-              assistantTmp.content = "生成失败，请重试。";
-            }
-            ElMessage.error(payload.message || "生成失败");
-          }
-        }
+  const streamPayload = {
+    sessionId,
+    modelId: selectedModelId.value,
+    message: text
+  };
+  const streamOptions = {
+    signal: streamAbortController.value.signal,
+    onEvent: (event, payload) => {
+      if (event === "start") {
+        assistantTmp.id = payload.assistantMessageId ?? assistantTmp.id;
+        return;
       }
-    );
+      if (event === "delta") {
+        assistantTmp.content += payload.delta ?? "";
+        return;
+      }
+      if (event === "done") {
+        assistantTmp.content = payload.content ?? assistantTmp.content;
+        assistantTmp.status = "DONE";
+        return;
+      }
+      if (event === "error") {
+        assistantTmp.status = "FAILED";
+        if (!assistantTmp.content) {
+          assistantTmp.content = "生成失败，请重试。";
+        }
+        ElMessage.error(payload.message || "生成失败");
+      }
+    }
+  };
+  const streamFn = transportMode.value === "websocket" ? streamChatWebSocket : streamChat;
+
+  try {
+    await streamFn(streamPayload, streamOptions);
   } catch (error) {
     if (streamAbortController.value?.signal.aborted) {
       assistantTmp.status = "FAILED";
